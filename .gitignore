@@ -1,0 +1,13 @@
+# bazel files
+/bazel-*
+
+# bazel symlink
+/.bazel
+
+# editor cruft
+*~
+\#*\#
+/.cproject
+/.gs
+/.project
+/.pydevproject
