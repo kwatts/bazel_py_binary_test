@@ -5,12 +5,10 @@ def impl_deploy(ctx):
     paths += [ c.path for c in ctx.files.configs ]
 
     ctx.action(
-               inputs=ctx.files.configs + ctx.files.deps + [ctx.executable._smart_tar],
+        executable=ctx.executable._smart_tar,
+               inputs=ctx.files.configs + ctx.files.deps,
                outputs=[ctx.outputs.tarball],
-               command="%s %s %s" % (ctx.executable._smart_tar.path,
-                                     ctx.outputs.tarball.path,
-                                     ' '.join(paths))
-               )
+        arguments=[ctx.outputs.tarball.path] + paths)
 
 """
 Deployment:
@@ -23,7 +21,7 @@ deploy = rule(
     implementation=impl_deploy,
     attrs = {
         "_smart_tar": attr.label(default=Label("//common:smart_tar"),
-                                 executable=True),
+                                 executable=True, cfg=HOST_CFG),
         "configs": attr.label_list(allow_files=True),
         "deps": attr.label_list(),
     },

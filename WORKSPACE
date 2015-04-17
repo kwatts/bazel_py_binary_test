@@ -1,1 +1,1 @@
-workspace(name = "py_binary_test")
+workspace(name = "bazel_py_binary")
